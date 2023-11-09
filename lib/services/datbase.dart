@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:jobbagregator/services/validator.dart';
 
 
 class DatabaseService {
@@ -17,13 +18,23 @@ class DatabaseService {
      // More could be added currently contact is emitted becuase of GDPR
     /// Function to add job ads to the database
     Future addJobData(String company, String title, String location, String link, List<String> tags) async{
-        return await jobAddCollection.doc(jid).set({
-            'company': company,
-            'title': title,
-            'location':location,
-            'link':link,
-            'tags':tags,
-        });
+      //block for validating all input strings
+      company = Validator.validateString(company, 30);
+      title = Validator.validateString(title, 30);
+      location = Validator.validateString(location, 30);
+      link = Validator.validateString(link, 30);
+      for(String i in tags){
+        i = Validator.validateString(i, 30);
+      }
+
+      //add the validated strings to database
+      return await jobAddCollection.doc(jid).set({
+        'company': company,
+        'title': title,
+        'location':location,
+        'link':link,
+        'tags':tags,
+      });
     }
   //fetch the stream of job ads
   /// Use this to get data when an update happens
@@ -34,30 +45,4 @@ class DatabaseService {
   Stream<QuerySnapshot> get jobAds{
     return jobAddCollection.snapshots();
   }
-
-  ///tests for validating Strings for addJobData
-  bool validateString(String s){
-    if(s.length > 30 || s.isNotEmpty){
-      return false;
-    }
-
-    return true;
-  }
-  /*
-  String stringFix(String s){
-    var map = {
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#039;',
-      "`": '&#039;'
-    };
-
-    final exp = new RegExp(r'\d+(?:\.\d+)?'); 
-    final sFixed = s.replaceAllMapped(exp, 
-        (Match m) => "<span>${m[0]}</span>"); 
-    return sFixed;
-  }
- */
 }
