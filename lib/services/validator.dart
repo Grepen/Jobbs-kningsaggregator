@@ -2,7 +2,7 @@ class Validator{
 
 ///tests for validating Strings for addJobData
   static String validateString(String s, int max , [int min = 0]){
-    if(s.length > max || s.isNotEmpty || s.length < min){
+    if(s.length > max || s.isEmpty || s.length < min){
       throw FormatException("Bad string length");
     }
     s = _stringFix(s);
