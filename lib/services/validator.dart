@@ -24,4 +24,15 @@ class Validator{
     return map[m.group(0)].toString();}); 
     return sFixed;
   }
+///tests for validating int for addJobData
+  static int? validateInt(int? value, int max, int min, {bool allowNull=false}){
+    if(allowNull && value == null){
+      return null;
+    }
+    if(value == null || value > max || value < min){
+      throw FormatException("Bad int value");
+    }
+    return value;
+    
+  }
 }
