@@ -8,7 +8,7 @@ BASE_URL = 'https://jobstream.api.jobtechdev.se'
 STREAM_URL = f"{BASE_URL}/stream"
 SNAPSHOT_URL = f"{BASE_URL}/snapshot"
 
-SLEEP_TIME_MINUTES = 10
+SLEEP_TIME_MINUTES = 720 # This is every 12 hours
 MAX_UPDATES = 4
 
 DATE_FORMAT = "%Y-%m-%dT%H:%M:%S"
