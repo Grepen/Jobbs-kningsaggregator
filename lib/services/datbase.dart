@@ -19,12 +19,14 @@ class DatabaseService {
 
      // More could be added currently contact is emitted becuase of GDPR
     /// Function to add job ads to the database
-    Future addJobData(String company, String title, String location, String link, List<String> tags) async{
+    Future addJobData(String company, String title, String location, String link, String published, String deadline, List<String> tags) async{
       //block for validating all input strings
       company = Validator.validateString(company, 30);
       title = Validator.validateString(title, 30);
       location = Validator.validateString(location, 30);
       link = Validator.validateString(link, 30);
+      published = Validator.validateString(published, 30);
+      deadline = Validator.validateString(deadline, 30);
       for(String i in tags){
         i = Validator.validateString(i, 30);
       }
@@ -35,6 +37,8 @@ class DatabaseService {
         'title': title,
         'location':location,
         'link':link,
+        'published':published,
+        'deadline':deadline,
         'tags':tags,
       });
     }
@@ -59,12 +63,14 @@ class DatabaseService {
         title: maps[i]['occupation'] as String,
         location: maps[i]['city'] as String,
         link: maps[i]['af_url'] as String,
+        published: maps[i]['published'] as String,
+        deadline: maps[i]['deadline'] as String,
         tags: maps[i][{'email','workplace'}] as List<String>
       );
     });
 
     for (Afobject i in afList){
-      addJobData(i.company, i.title, i.location, i.link, i.tags);
+      addJobData(i.company, i.title, i.location, i.link, i.published, i.deadline, i.tags);
     }
 
   }

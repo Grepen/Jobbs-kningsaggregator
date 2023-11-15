@@ -3,6 +3,8 @@ class Afobject{
   final String title;
   final String location;
   final String link;
+  final String published;
+  final String deadline;
   final List<String> tags;
 
   Afobject({
@@ -10,6 +12,8 @@ class Afobject{
     required this.title,
     required this.location,
     required this.link,
+    required this.published,
+    required this.deadline,
     required this.tags
   });
 
