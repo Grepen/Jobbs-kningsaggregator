@@ -68,12 +68,25 @@ class DatabaseService {
         tags: maps[i][{'email','workplace'}] as List<String>
       );
     });
-
+    DateTime tempTime;
     for (Afobject i in afList){
-      addJobData(i.company, i.title, i.location, i.link, i.published, i.deadline, i.tags);
+      tempTime = afString2Time(i.published);
+      if(tempTime.isAfter(lastAfUpdate)){
+        addJobData(i.company, i.title, i.location, i.link, i.published, i.deadline, i.tags);
+      }
     }
 
   }
 
+  static DateTime afString2Time(String t){
+    //t format 2023-05-23T-15:59:59
+    t.split('T');
+    List<dynamic> t0 = t[0].split('-');//T[0]={yyyy,mm,dd}
+    List<dynamic> t1 = t[1].split(':');//T[1]={hh,minmin,ss}
+    List<int> t0i = t0.cast<int>();
+    List<int> t1i = t1.cast<int>();
+    DateTime time = DateTime(t0i[0],t0i[1],t0i[2],t1i[0],t1i[1],t1i[2]);
+    return time;
+  }
 
 }
