@@ -9,6 +9,7 @@ class DatabaseService {
     //Reference to collection
     static final CollectionReference jobAddCollection = FirebaseFirestore.instance.collection('jobAdds');
     final String jid;
+    int counter = 0;
     DateTime lastAfUpdate;
    /// A unique  job id must be generated as to allow storage of the new job else it will override
    /// this is a sting so could be a unique name or otheridentifier
@@ -30,9 +31,10 @@ class DatabaseService {
       for(String i in tags){
         i = Validator.validateString(i, 30);
       }
-
+      counter++;
+      String tempc = counter.toString();
       //add the validated strings to database
-      return await jobAddCollection.doc(jid).set({
+      return await jobAddCollection.doc(jid + tempc).set({
         'company': company,
         'title': title,
         'location':location,
@@ -52,11 +54,9 @@ class DatabaseService {
     return jobAddCollection.snapshots();
   }
 
-  void af2fs(int t)async{
+  void af2fs()async{
     final Database database = await openDatabase("af_database/jobads_database_test10.db");
-
-    final List<Map<String, dynamic>> maps = await database.query('');//not sure what to query for, probably fetch all ads since last update
-
+    final List<Map<String, dynamic>> maps = await database.query('SELECT * FROM jobads WHERE city = göteborg;');//not sure what to query for, probably fetch all ads since last update
     List<Afobject> afList = List.generate(maps.length, (i) {
       return Afobject(
         company: maps[i]['company'] as String,
@@ -78,8 +78,9 @@ class DatabaseService {
 
   }
 
+  /// Converts a string of format "2023-05-23T-15:59:59"
+  /// to a DateTime
   static DateTime afString2Time(String t){
-    //t format 2023-05-23T-15:59:59
     t.split('T');
     List<dynamic> t0 = t[0].split('-');//T[0]={yyyy,mm,dd}
     List<dynamic> t1 = t[1].split(':');//T[1]={hh,minmin,ss}
