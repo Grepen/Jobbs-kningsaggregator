@@ -13,7 +13,7 @@ void main() async {
           projectId: "dat067-1b58f"));
 
 
-    final result = await FirebaseFunctions.instance.httpsCallable('createDb').call(
+    final result = await FirebaseFunctions.instance.httpsCallable('on_call_dbsnap').call(
     {
 
     },);
