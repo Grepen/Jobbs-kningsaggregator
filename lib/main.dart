@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:jobbagregator/views/home/home_view.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,6 +11,15 @@ void main() async {
           appId: "1:477512615722:web:5a3e61828a7a6295d74053",
           messagingSenderId: "477512615722",
           projectId: "dat067-1b58f"));
+
+
+    final result = await FirebaseFunctions.instance.httpsCallable('createDb').call(
+    {
+
+    },);
+
+   
+
 
   runApp(MyApp());
 }

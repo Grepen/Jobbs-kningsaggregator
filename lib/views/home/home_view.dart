@@ -9,9 +9,10 @@ class HomeView extends StatelessWidget {
     Widget build(BuildContext context) {
         return Scaffold(
             body: Column(children: <Widget>[
-                Navbar(),
-                Result_list()
+                Navbar()
+                
             ],),
         );
     }
+    
 }
