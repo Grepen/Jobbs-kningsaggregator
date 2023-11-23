@@ -23,6 +23,7 @@ class _SearchBarAppState extends State<SearchBarApp> {
                     onChanged: (_) {
                         controller.openView();
                     },
+                    
                     leading: const Icon(Icons.search),
                 );
             }, 

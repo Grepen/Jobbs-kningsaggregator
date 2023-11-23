@@ -8,15 +8,18 @@ class Navbar extends StatelessWidget {
     @override
     Widget build(BuildContext context){
         return Container(
-            color: Color(0xFFDAD5D1),
+            color: Color.fromARGB(255, 91, 43, 60),
             height: 100,
             child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                    Row(
-                      mainAxisSize: MainAxisSize.min, 
-                      children: <Widget>[
-                        SearchBarApp()
-                      ],
+                    Center(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min, 
+                        children: <Widget>[
+                          SearchBarApp()
+                        ],
+                      ),
                     )
                 ],
             ),
