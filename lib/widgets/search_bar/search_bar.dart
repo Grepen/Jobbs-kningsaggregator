@@ -25,6 +25,7 @@ class _SearchBarAppState extends State<SearchBarApp> {
                     },
                     
                     leading: const Icon(Icons.search),
+                    
                 );
             }, 
             
